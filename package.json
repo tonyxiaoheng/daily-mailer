@@ -1,0 +1,11 @@
+{
+  "name": "daily-mailer",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "check": "node --check server.js && node --check web/app.js && node --check scripts/send-briefing.js",
+    "start": "node server.js",
+    "send": "node scripts/send-briefing.js"
+  }
+}

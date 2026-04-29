@@ -1,0 +1,22 @@
+{
+  "schedule": {
+    "enabled": true,
+    "time": "08:00",
+    "timezone": "Asia/Shanghai"
+  },
+  "email": {
+    "fromName": "Daily Briefing",
+    "subject": "今日天气与新闻简报"
+  },
+  "content": {
+    "city": "Shanghai",
+    "country": "China",
+    "includeWeather": true,
+    "newsCategories": [
+      "top",
+      "technology"
+    ],
+    "maxNewsPerCategory": 5,
+    "language": "zh-CN"
+  }
+}
