@@ -362,7 +362,8 @@ async function main() {
   } finally {
     client.close();
   }
-  console.log(`Briefing sent to ${mail.to.join(", ")}`);
+console.log("Briefing sent successfully.");
+
 }
 
 main().catch((error) => {
