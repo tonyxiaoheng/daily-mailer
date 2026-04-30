@@ -15,12 +15,13 @@
     "contactNote": "欢迎联系我了解部署、配置和定制方式。"
   },
   "content": {
-    "city": "Shanghai",
+    "city": "Guangzhou",
     "country": "China",
     "includeWeather": true,
     "newsCategories": [
       "top",
       "technology"
+      "science"
     ],
     "maxNewsPerCategory": 5,
     "language": "zh-CN"
