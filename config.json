@@ -2,14 +2,14 @@
   "schedule": {
     "enabled": true,
     "time": "08:00",
-    "timezone": "Asia/Guangzhou"
+    "timezone": "Asia/Shanghai"
   },
   "email": {
     "fromName": "Daily Briefing",
     "subject": "今日天气与新闻简报"
   },
   "content": {
-    "city": "Shanghai",
+    "city": "Guangzhou",
     "country": "China",
     "includeWeather": true,
     "newsCategories": [
