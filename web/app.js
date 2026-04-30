@@ -93,10 +93,7 @@ function fillForm(config) {
 
   const selected = new Set(config.content.newsCategories || []);
   newsChips.innerHTML = Object.entries(NEWS_FEEDS)
-    .map(([key, feed]) => {
-      const checked = selected.has(key) ? "checked" : "";
-      return `<label class="chip"><input type="checkbox" value="${key}" ${checked}>${feed.label}</label>`;
-    })
+    .map(([key, feed]) => `<label class="chip"><input type="checkbox" value="${key}" ${selected.has(key) ? "checked" : ""}>${feed.label}</label>`)
     .join("");
   updateScheduleSummary();
 }
@@ -138,7 +135,7 @@ function downloadConfig() {
   link.download = "config.json";
   link.click();
   URL.revokeObjectURL(url);
-  saveHint.textContent = "已生成配置文件";
+  saveHint.textContent = "已生成 config.json";
 }
 
 async function copyConfig() {
@@ -155,9 +152,7 @@ function escapeHtml(value) {
 }
 
 async function fetchWeather(config) {
-  const placeUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(
-    config.content.city,
-  )}&count=1&language=zh&format=json`;
+  const placeUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(config.content.city)}&count=1&language=zh&format=json`;
   const placeData = await fetch(placeUrl).then((response) => response.json());
   const place = placeData.results?.[0];
   if (!place) throw new Error(`找不到城市：${config.content.city}`);
@@ -179,60 +174,78 @@ async function fetchWeather(config) {
     tempMin: weather.daily.temperature_2m_min[0],
     precipitation: weather.daily.precipitation_probability_max[0],
     currentTemp: weather.current?.temperature_2m ?? "-",
+    wind: weather.current?.wind_speed_10m ?? "-",
   };
 }
 
 function sampleNews(config) {
-  return config.content.newsCategories.map((key) => ({
-    label: NEWS_FEEDS[key]?.label || key,
-    items: Array.from({ length: Math.min(config.content.maxNewsPerCategory, 3) }, (_, index) => ({
-      title: `${NEWS_FEEDS[key]?.label || key}新闻示例 ${index + 1}`,
-      source: "GitHub Actions 发送时会抓取实时新闻",
-    })),
-  }));
+  return config.content.newsCategories.map((key) => {
+    const label = NEWS_FEEDS[key]?.label || key;
+    const items = Array.from({ length: Math.min(config.content.maxNewsPerCategory, 4) }, (_, index) => ({
+      title: `${label}焦点新闻 ${index + 1}`,
+      source: "实时发送时会替换为真实来源",
+      link: "#",
+    }));
+    return {
+      label,
+      insight: `${label}栏目会在邮件中自动整理重点标题、来源和对应链接。`,
+      items,
+    };
+  });
 }
 
 async function generatePreview() {
   const config = collectConfig();
-  previewMeta.textContent = "正在生成天气预览...";
+  previewMeta.textContent = "正在生成预览...";
   let weatherHtml = "";
   try {
     if (config.content.includeWeather) {
       const weather = await fetchWeather(config);
       weatherHtml = `
         <section class="mail-weather">
-          <strong>${escapeHtml(weather.city)}，${escapeHtml(weather.country)}</strong>
-          <p>${escapeHtml(weather.summary)}，${weather.tempMin}°C - ${weather.tempMax}°C，降水概率 ${weather.precipitation}%，当前 ${weather.currentTemp}°C。</p>
+          <div><span>${escapeHtml(weather.city)}，${escapeHtml(weather.country)}</span><strong>${escapeHtml(weather.summary)}</strong></div>
+          <div><span>温度</span><strong>${weather.tempMin} - ${weather.tempMax}°C</strong></div>
+          <div><span>降水</span><strong>${weather.precipitation}%</strong></div>
+          <div><span>风速</span><strong>${weather.wind} km/h</strong></div>
         </section>`;
     }
   } catch (error) {
     weatherHtml = `<section class="mail-weather warning">天气预览失败：${escapeHtml(error.message)}</section>`;
   }
 
-  const newsHtml = sampleNews(config)
+  const groups = sampleNews(config);
+  const focus = groups.flatMap((group) => group.items.slice(0, 1).map((item) => ({ ...item, label: group.label }))).slice(0, 4);
+  const focusHtml = focus
+    .map((item) => `<article class="focus-card"><span>${escapeHtml(item.label)}</span><strong>${escapeHtml(item.title)}</strong><small>${escapeHtml(item.source)}</small></article>`)
+    .join("");
+  const newsHtml = groups
     .map(
       (group) => `
-        <section>
+        <section class="mail-section">
           <h4>${escapeHtml(group.label)}</h4>
-          <ol>${group.items.map((item) => `<li>${escapeHtml(item.title)}<span>${escapeHtml(item.source)}</span></li>`).join("")}</ol>
+          <p>${escapeHtml(group.insight)}</p>
+          ${group.items.map((item) => `<article><a>${escapeHtml(item.title)}</a><span>${escapeHtml(item.source)}</span></article>`).join("")}
         </section>`,
     )
     .join("");
 
   previewFrame.innerHTML = `
     <article class="mail-card">
-      <p class="mail-date">${new Date().toLocaleString("zh-CN", { hour12: false })}</p>
+      <p class="mail-date">Daily Briefing · ${new Date().toLocaleString("zh-CN", { hour12: false })}</p>
       <h3>${escapeHtml(config.email.subject)}</h3>
+      <p class="mail-lede">今日将按你选择的栏目生成增强版简报：先给重点，再按类型附上来源和链接。</p>
       ${weatherHtml}
+      <section class="mail-focus">${focusHtml}</section>
       ${newsHtml}
     </article>`;
-  previewMeta.textContent = "预览已生成";
+  previewMeta.textContent = "增强版预览已生成";
 }
 
 document.querySelector("#downloadBtn").addEventListener("click", downloadConfig);
 document.querySelector("#copyBtn").addEventListener("click", () => copyConfig().catch((error) => (saveHint.textContent = error.message)));
 document.querySelector("#previewBtn").addEventListener("click", () => generatePreview().catch((error) => (previewMeta.textContent = error.message)));
 document.querySelector("#settingsForm").addEventListener("input", updateScheduleSummary);
+document.querySelector("#settingsForm").addEventListener("change", () => generatePreview());
 
 loadConfig().then((config) => {
   fillForm(config);
