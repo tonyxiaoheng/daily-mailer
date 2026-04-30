@@ -55,14 +55,18 @@ function escapeHtml(value) {
 }
 
 function decodeXml(value) {
-  return String(value ?? "")
-    .replace(/<!\[CDATA\[(.*?)\]\]>/gs, "$1")
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&apos;/g, "'");
+  let text = String(value ?? "").replace(/<!\[CDATA\[(.*?)\]\]>/gs, "$1");
+  for (let i = 0; i < 2; i += 1) {
+    text = text
+      .replace(/&nbsp;|&#160;|\u00a0/g, " ")
+      .replace(/&amp;/g, "&")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/&apos;/g, "'");
+  }
+  return text;
 }
 
 function stripTags(value) {
@@ -72,7 +76,8 @@ function stripTags(value) {
 function cleanTitle(title, source) {
   const clean = stripTags(title);
   if (!source) return clean;
-  return clean.replace(new RegExp(`\\s+-\\s+${source.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`), "").trim();
+  const escapedSource = source.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return clean.replace(new RegExp(`\\s*(?:-|—|–|\\||　| )+\\s*${escapedSource}$`), "").trim();
 }
 
 async function fetchJson(url) {
