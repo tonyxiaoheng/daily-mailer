@@ -25,7 +25,8 @@
         <div class="hero-stage glass">
           <div class="hero-copy">
             <p class="eyebrow">Daily Mailer</p>
-            <h1 class="hero-title"><span>快人一步</span><span>先人一步</span></h1>
+            <p class="product-name" data-i18n="productName">每日邮报系统</p>
+            <h1 class="hero-title"><span data-i18n="heroLine1">快人一步</span><span data-i18n="heroLine2">先人一步</span></h1>
             <p class="lede">
               在信息抵达你之前，先把它整理成秩序。Daily Mailer 将天气、要闻与来源链接汇成一封清晨简报，让一天从判断力开始，而不是从碎片里醒来。
             </p>
@@ -57,7 +58,7 @@
       <section id="system" class="section">
         <div class="section-head centered">
           <p class="eyebrow">System</p>
-          <h2>一套安静运行的每日邮报系统。</h2>
+          <h2>先理解世界，再开始一天。</h2>
           <p>它不试图占据你的注意力，只负责在合适的时间，把有用信息放到你已经习惯打开的邮箱里。</p>
         </div>
         <div class="feature-grid">
@@ -91,7 +92,7 @@
       <section id="workflow" class="section workflow-section glass">
         <div class="workflow-copy">
           <p class="eyebrow">Workflow</p>
-          <h2>从抓取到投递，每一步都清晰。</h2>
+          <h2><span>从抓取到投递，</span><span>每一步都清晰。</span></h2>
           <p>系统把复杂动作拆成四个稳定环节：获取、整理、生成、发送。访客能看懂原理，你也能放心维护。</p>
         </div>
         <div class="workflow-steps">
@@ -105,7 +106,7 @@
       <section id="security" class="section security-section">
         <div class="security-hero dark-card">
           <p class="eyebrow">Security</p>
-          <h2>公开展示，私密运行。</h2>
+          <h2><span>公开展示</span><span>私密运行</span></h2>
           <p>
             Daily Mailer 将“可以公开的信息”和“必须保密的密钥”分离。访客可以了解系统，配置页可以生成公开配置，而邮箱授权码始终留在 GitHub Secrets。
           </p>
@@ -121,10 +122,10 @@
       <section id="contact" class="section contact-section glass">
         <div>
           <p class="eyebrow">Contact</p>
-          <h2>想了解部署或配置方式？</h2>
-          <p>联系方式可以在配置入口里更新。公开页面只展示你愿意公开给访客的信息。</p>
+          <h2>留下你的信息。</h2>
+          <p>访客可以提交姓名、邮箱和留言。纯静态网页不会真正发送表单，但会生成一份可复制的访客信息，方便你后续接入表单服务。</p>
         </div>
-        <button type="button" class="button" id="showContactBtn">联系我们</button>
+        <button type="button" class="button" id="showContactBtn">提交访客信息</button>
       </section>
     </main>
 
@@ -133,7 +134,7 @@
       <div class="footer-actions">
         <button type="button" id="languageBtn">语言设置</button>
         <button type="button" id="accessibilityBtn">无障碍设置</button>
-        <button type="button" id="footerContactBtn">联系我们</button>
+        <button type="button" id="footerContactBtn">提交访客信息</button>
       </div>
     </footer>
 
@@ -147,7 +148,13 @@
     <dialog id="contactDialog" class="dialog glass">
       <button type="button" class="dialog-close" data-close>关闭</button>
       <p class="eyebrow">Contact</p>
-      <h3>联系方式</h3>
+      <h3>提交访客信息</h3>
+      <form id="visitorForm" class="visitor-form">
+        <label><span>姓名</span><input id="visitorName" /></label>
+        <label><span>邮箱</span><input id="visitorEmail" type="email" /></label>
+        <label><span>留言</span><textarea id="visitorMessage" rows="4"></textarea></label>
+        <button type="submit">生成访客信息</button>
+      </form>
       <div id="contactContent" class="contact-content"></div>
     </dialog>
 

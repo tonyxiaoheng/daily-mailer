@@ -14,6 +14,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   min-height: 100vh;
   margin: 0;
@@ -64,6 +68,27 @@ a {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+  overflow: hidden;
+  background:
+    linear-gradient(115deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.2) 38%, rgba(255, 255, 255, 0.56)),
+    radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.96), transparent 8rem),
+    rgba(255, 255, 255, 0.24);
+  box-shadow: 0 18px 48px rgba(32, 52, 80, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 -1px 0 rgba(255, 255, 255, 0.28);
+}
+
+.topbar::before {
+  content: "";
+  position: absolute;
+  inset: -80% -20%;
+  background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, 0.72), transparent 60%);
+  transform: translateX(-45%);
+  animation: glassFlow 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.topbar > * {
+  position: relative;
+  z-index: 1;
 }
 
 .brand {
@@ -148,11 +173,27 @@ a {
 
 .hero-title {
   display: grid;
-  gap: 6px;
+  gap: 10px;
+  max-width: 720px;
 }
 
 .hero-title span {
   display: block;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.product-name {
+  width: fit-content;
+  margin: 0 0 18px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(12, 23, 38, 0.92);
+  color: #fff;
+  font-size: clamp(18px, 3vw, 30px);
+  font-weight: 900;
+  letter-spacing: 0;
+  box-shadow: 0 18px 36px rgba(12, 23, 38, 0.18);
 }
 
 .hero-actions {
@@ -343,8 +384,13 @@ a {
 
 .workflow-copy h2 {
   margin: 8px 0 16px;
-  font-size: clamp(38px, 5vw, 70px);
-  line-height: 0.98;
+  font-size: clamp(34px, 4.6vw, 60px);
+  line-height: 1.02;
+}
+
+.workflow-copy h2 span,
+.security-hero h2 span {
+  display: block;
 }
 
 .workflow-copy p {
@@ -421,8 +467,8 @@ a {
 
 .security-hero h2 {
   margin: 10px 0 18px;
-  font-size: clamp(44px, 6vw, 88px);
-  line-height: 0.95;
+  font-size: clamp(44px, 5.8vw, 82px);
+  line-height: 1;
 }
 
 .security-hero p {
@@ -470,6 +516,45 @@ a {
   margin-top: 18px;
 }
 
+.contact-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: clamp(24px, 5vw, 46px);
+  border-radius: 36px;
+}
+
+.contact-section h2 {
+  margin: 8px 0 10px;
+  font-size: clamp(34px, 5vw, 62px);
+  line-height: 1;
+}
+
+.contact-section p {
+  max-width: 720px;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.visitor-form {
+  display: grid;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+textarea {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.48);
+  color: var(--text);
+  padding: 12px 14px;
+  font: inherit;
+  resize: vertical;
+  outline: none;
+}
+
 .footer {
   width: min(1180px, calc(100% - 32px));
   margin: 54px auto 32px;
@@ -503,11 +588,25 @@ a {
   border-radius: 30px;
   padding: 30px;
   color: var(--text);
+  opacity: 0;
+  transform: translateY(22px) scale(0.96);
+  transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.dialog[open] {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.dialog.closing {
+  opacity: 0;
+  transform: translateY(18px) scale(0.97);
 }
 
 .dialog::backdrop {
   background: rgba(8, 15, 28, 0.32);
   backdrop-filter: blur(12px);
+  animation: backdropIn 0.22s ease both;
 }
 
 .dialog h3 {
@@ -550,6 +649,23 @@ a {
 .contact-content span {
   margin-top: 4px;
   color: var(--muted);
+  line-height: 1.65;
+}
+
+.language-options {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.language-options button {
+  min-height: 38px;
+  padding: 0 13px;
+  border-radius: 999px;
+  background: rgba(23, 107, 255, 0.12);
+  color: #176bff;
+  box-shadow: none;
 }
 
 .accessibility-on {
@@ -1134,6 +1250,10 @@ button {
     font-size: 48px;
   }
 
+  .hero-title span {
+    white-space: normal;
+  }
+
   .device-card {
     max-width: 100%;
   }
@@ -1158,5 +1278,45 @@ button {
   .mail-weather,
   .mail-focus {
     grid-template-columns: 1fr;
+  }
+
+  .contact-section,
+  .footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@keyframes glassFlow {
+  0%,
+  100% {
+    transform: translateX(-55%) rotate(0deg);
+    opacity: 0.2;
+  }
+  45% {
+    transform: translateX(35%) rotate(3deg);
+    opacity: 0.62;
+  }
+}
+
+@keyframes backdropIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }

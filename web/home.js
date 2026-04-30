@@ -5,6 +5,24 @@ const DEFAULT_SITE = {
   contactNote: "欢迎联系我了解部署、配置和定制方式。",
 };
 
+const I18N = {
+  zh: {
+    productName: "每日邮报系统",
+    heroLine1: "快人一步",
+    heroLine2: "先人一步",
+  },
+  en: {
+    productName: "Daily Briefing System",
+    heroLine1: "One step faster",
+    heroLine2: "One step ahead",
+  },
+  zhHant: {
+    productName: "每日郵報系統",
+    heroLine1: "快人一步",
+    heroLine2: "先人一步",
+  },
+};
+
 const DETAILS = {
   schedule: {
     title: "定时送达如何运行",
@@ -36,13 +54,18 @@ async function loadSiteSettings() {
 }
 
 function openDialog(dialog) {
+  dialog.classList.remove("closing");
   if (typeof dialog.showModal === "function") dialog.showModal();
   else dialog.setAttribute("open", "");
 }
 
 function closeDialog(dialog) {
-  dialog.close?.();
-  dialog.removeAttribute("open");
+  dialog.classList.add("closing");
+  setTimeout(() => {
+    dialog.close?.();
+    dialog.removeAttribute("open");
+    dialog.classList.remove("closing");
+  }, 220);
 }
 
 document.querySelectorAll("[data-detail]").forEach((card) => {
@@ -61,9 +84,7 @@ document.querySelectorAll("[data-close]").forEach((button) => {
 async function showContact() {
   const site = await loadSiteSettings();
   document.querySelector("#contactContent").innerHTML = `
-    <div><strong>${site.contactName}</strong><span>${site.contactNote}</span></div>
-    <div><strong>邮箱</strong><span>${site.contactEmail}</span></div>
-    <div><strong>微信</strong><span>${site.contactWechat}</span></div>
+    <div><strong>站点联系人</strong><span>${site.contactName} · ${site.contactEmail} · ${site.contactWechat}</span></div>
   `;
   openDialog(document.querySelector("#contactDialog"));
 }
@@ -71,10 +92,24 @@ async function showContact() {
 document.querySelector("#showContactBtn").addEventListener("click", showContact);
 document.querySelector("#footerContactBtn").addEventListener("click", showContact);
 
+function setLanguage(lang) {
+  const pack = I18N[lang] || I18N.zh;
+  document.documentElement.lang = lang === "zhHant" ? "zh-Hant" : lang;
+  document.querySelectorAll("[data-i18n]").forEach((node) => {
+    node.textContent = pack[node.dataset.i18n] || node.textContent;
+  });
+}
+
 document.querySelector("#languageBtn").addEventListener("click", () => {
   document.querySelector("#utilityKicker").textContent = "Language";
   document.querySelector("#utilityTitle").textContent = "语言设置";
-  document.querySelector("#utilityBody").textContent = "当前页面以中文展示。后续可以在配置入口中扩展英文文案或多语言字段。";
+  document.querySelector("#utilityBody").innerHTML = `
+    <span class="language-options">
+      <button type="button" data-lang="zh">简体中文</button>
+      <button type="button" data-lang="zhHant">繁體中文</button>
+      <button type="button" data-lang="en">English</button>
+    </span>
+  `;
   openDialog(document.querySelector("#utilityDialog"));
 });
 
@@ -86,4 +121,24 @@ document.querySelector("#accessibilityBtn").addEventListener("click", () => {
     ? "已开启增强可读模式：对比度和字号已提升。"
     : "已关闭增强可读模式。";
   openDialog(document.querySelector("#utilityDialog"));
+});
+
+document.querySelector("#utilityDialog").addEventListener("click", (event) => {
+  const button = event.target.closest("[data-lang]");
+  if (!button) return;
+  setLanguage(button.dataset.lang);
+});
+
+document.querySelector("#visitorForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const site = await loadSiteSettings();
+  const name = document.querySelector("#visitorName").value.trim();
+  const email = document.querySelector("#visitorEmail").value.trim();
+  const message = document.querySelector("#visitorMessage").value.trim();
+  const text = `访客信息\n姓名：${name}\n邮箱：${email}\n留言：${message}\n\n站点联系人：${site.contactName} / ${site.contactEmail} / ${site.contactWechat}`;
+  document.querySelector("#contactContent").innerHTML = `
+    <div><strong>访客信息已生成</strong><span>${text.replace(/\n/g, "<br>")}</span></div>
+    <div><strong>下一步</strong><span>当前是纯静态网页，信息不会自动发出。你可以复制这段内容，后续也可以接入 Formspree、Google Forms 或后端接口。</span></div>
+  `;
+  navigator.clipboard?.writeText(text).catch(() => {});
 });
