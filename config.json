@@ -20,7 +20,7 @@
     "includeWeather": true,
     "newsCategories": [
       "top",
-      "technology"
+      "technology",
       "science"
     ],
     "maxNewsPerCategory": 5,
