@@ -9,136 +9,110 @@
   <body>
     <div class="ambient ambient-a"></div>
     <div class="ambient ambient-b"></div>
-    <main class="shell">
-      <section class="hero glass-panel">
-        <div class="hero-copy">
-          <p class="eyebrow">Daily Mailer</p>
-          <h1>每天自动投递天气与新闻简报</h1>
-          <p class="lede">网页放在 GitHub Pages，定时发送交给 GitHub Actions。邮箱密码只放在 GitHub Secrets。</p>
-        </div>
-        <div class="orbital-card">
-          <span class="orbital-label">下一次计划</span>
-          <strong id="nextRun">读取中</strong>
-          <span id="scheduleHint">Asia/Shanghai</span>
+    <header class="topbar glass">
+      <a class="brand" href="./index.html">Daily Mailer</a>
+      <nav>
+        <a href="#system">系统</a>
+        <a href="#workflow">流程</a>
+        <a href="#privacy">安全</a>
+        <a class="nav-pill" href="./config.html">配置入口</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="landing-hero">
+        <div class="hero-stage glass">
+          <div class="hero-copy">
+            <p class="eyebrow">Daily Mailer</p>
+            <h1>快人一步，先人一步。</h1>
+            <p class="lede">
+              一个每天自动投递天气与新闻的轻量系统。清晨醒来之前，它已经替你整理好今日天气、重点新闻、分类链接和阅读线索。
+            </p>
+            <div class="hero-actions">
+              <a class="button" href="./config.html">进入配置</a>
+              <a class="button ghost" href="#system">了解系统</a>
+            </div>
+          </div>
+          <div class="device-card">
+            <div class="device-toolbar">
+              <span></span><span></span><span></span>
+            </div>
+            <div class="mail-shot">
+              <p>Daily Briefing</p>
+              <h2>今日天气与新闻简报</h2>
+              <div class="shot-grid">
+                <div><b>晴朗</b><span>18 - 26°C</span></div>
+                <div><b>12</b><span>条重点新闻</span></div>
+              </div>
+              <article>
+                <strong>今日重点</strong>
+                <span>科技、财经、国际新闻已经按栏目整理完毕。</span>
+              </article>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section class="glass-panel setup-strip">
-        <div>
-          <span class="step-kicker">Secrets</span>
-          <strong>SMTP_HOST / SMTP_PORT / SMTP_USER / SMTP_PASS / MAIL_FROM / MAIL_TO</strong>
+      <section id="system" class="section">
+        <div class="section-head">
+          <p class="eyebrow">System</p>
+          <h2>一个免费的每日邮报系统</h2>
+          <p>网页负责展示与配置生成，GitHub Actions 负责定时发送，邮箱密钥放在 GitHub Secrets。</p>
         </div>
-        <div>
-          <span class="step-kicker">Actions</span>
-          <strong>daily-mail.yml 每天自动运行</strong>
-        </div>
-        <div>
-          <span class="step-kicker">Pages</span>
-          <strong>静态网页展示与生成配置</strong>
+        <div class="feature-grid">
+          <article class="feature-card glass">
+            <span>01</span>
+            <h3>每日自动发送</h3>
+            <p>按设定时间自动运行，无需打开自己的电脑。</p>
+          </article>
+          <article class="feature-card glass">
+            <span>02</span>
+            <h3>天气与新闻同送达</h3>
+            <p>天气、热点、科技、财经、国际等栏目可自由组合。</p>
+          </article>
+          <article class="feature-card glass">
+            <span>03</span>
+            <h3>增强版新闻简报</h3>
+            <p>先给今日重点，再按类型附来源和原文链接。</p>
+          </article>
+          <article class="feature-card glass">
+            <span>04</span>
+            <h3>无需付费 AI</h3>
+            <p>基于公开 RSS 自动整理，保持免费、稳定、可控。</p>
+          </article>
         </div>
       </section>
 
-      <form id="settingsForm" class="workspace">
-        <section class="glass-panel panel">
-          <div class="panel-head">
-            <div>
-              <p class="section-label">Schedule</p>
-              <h2>发送计划</h2>
-            </div>
-            <label class="switch" title="是否启用 GitHub Actions 定时发送">
-              <input type="checkbox" id="scheduleEnabled" />
-              <span></span>
-            </label>
-          </div>
-          <div class="grid two">
-            <label>
-              <span>每天发送时间</span>
-              <input id="sendTime" type="time" />
-            </label>
-            <label>
-              <span>时区</span>
-              <input id="timezone" value="Asia/Shanghai" />
-            </label>
-          </div>
-          <div class="notice">
-            GitHub Actions 的 cron 使用 UTC。若你改了时间，请同步调整
-            <code>.github/workflows/daily-mail.yml</code> 里的 cron。
-          </div>
-        </section>
-
-        <section class="glass-panel panel">
-          <div class="panel-head">
-            <div>
-              <p class="section-label">Mail</p>
-              <h2>邮件外观</h2>
-            </div>
-          </div>
-          <div class="grid two">
-            <label>
-              <span>发件名称</span>
-              <input id="fromName" />
-            </label>
-            <label>
-              <span>邮件标题</span>
-              <input id="subject" />
-            </label>
-          </div>
-          <div class="notice soft">
-            收件人、SMTP 账号和授权码不写入网页配置，请在 GitHub 仓库的 Secrets 中设置。
-          </div>
-        </section>
-
-        <section class="glass-panel panel wide">
-          <div class="panel-head">
-            <div>
-              <p class="section-label">Briefing</p>
-              <h2>内容选择</h2>
-            </div>
-            <button class="ghost" type="button" id="previewBtn">生成预览</button>
-          </div>
-          <div class="grid four">
-            <label>
-              <span>城市</span>
-              <input id="city" />
-            </label>
-            <label>
-              <span>国家/地区</span>
-              <input id="country" />
-            </label>
-            <label>
-              <span>每类新闻数量</span>
-              <input id="maxNews" type="number" min="1" max="12" />
-            </label>
-            <label class="checkline">
-              <input id="includeWeather" type="checkbox" />
-              <span>包含当日天气</span>
-            </label>
-          </div>
-          <div>
-            <span class="label-title">新闻类型</span>
-            <div class="chips" id="newsChips"></div>
-          </div>
-        </section>
-
-        <section class="actions">
-          <button type="button" id="downloadBtn">下载 config.json</button>
-          <button class="ghost" type="button" id="copyBtn">复制配置</button>
-          <span id="saveHint"></span>
-        </section>
-      </form>
-
-      <section class="glass-panel preview">
-        <div class="panel-head">
-          <div>
-            <p class="section-label">Preview</p>
-            <h2>邮件预览</h2>
-          </div>
-          <span id="previewMeta">使用当前配置生成</span>
+      <section id="workflow" class="section split glass">
+        <div>
+          <p class="eyebrow">Workflow</p>
+          <h2>清晨之前，简报已经在邮箱里。</h2>
         </div>
-        <div id="previewFrame" class="mail-preview"></div>
+        <div class="timeline">
+          <div><strong>抓取天气</strong><span>Open-Meteo 获取当日天气。</span></div>
+          <div><strong>整理新闻</strong><span>Google News RSS 按栏目聚合。</span></div>
+          <div><strong>生成邮件</strong><span>输出 Apple 风格日报排版。</span></div>
+          <div><strong>自动投递</strong><span>GitHub Actions 定时发送。</span></div>
+        </div>
+      </section>
+
+      <section id="privacy" class="section privacy">
+        <div class="privacy-card glass">
+          <p class="eyebrow">Privacy</p>
+          <h2>敏感信息不放在网页里。</h2>
+          <p>
+            SMTP 密码、Gmail 应用专用密码、收件邮箱等信息由 GitHub Secrets 保存。公开网页只展示系统说明和公开配置生成入口。
+          </p>
+        </div>
+        <div class="privacy-card dark-card">
+          <p class="eyebrow">Control</p>
+          <h2>配置入口放在二级页面。</h2>
+          <p>只有知道页面账号密码的人，才能进入配置生成器并下载新的 config.json。</p>
+          <a class="button" href="./config.html">打开配置入口</a>
+        </div>
       </section>
     </main>
 
-    <script src="./app.js"></script>
+    <footer class="footer">Daily Mailer · Built for early signals and quiet mornings.</footer>
   </body>
 </html>

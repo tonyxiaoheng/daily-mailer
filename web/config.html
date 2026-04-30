@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Daily Mailer Config</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="ambient ambient-a"></div>
+    <div class="ambient ambient-b"></div>
+    <header class="topbar glass">
+      <a class="brand" href="./index.html">Daily Mailer</a>
+      <nav>
+        <a href="./index.html">项目介绍</a>
+        <a class="nav-pill" href="./config.html">配置入口</a>
+      </nav>
+    </header>
+
+    <main class="config-shell">
+      <section id="loginView" class="login-panel glass">
+        <p class="eyebrow">Private Console</p>
+        <h1>进入配置中心</h1>
+        <p>这是静态网页内的轻量登录，只用于隐藏配置生成器。真正的邮箱密码仍然只放在 GitHub Secrets。</p>
+        <form id="loginForm" class="login-form">
+          <label>
+            <span>账号</span>
+            <input id="loginUser" autocomplete="username" />
+          </label>
+          <label>
+            <span>密码</span>
+            <input id="loginPass" type="password" autocomplete="current-password" />
+          </label>
+          <button type="submit">进入</button>
+          <span id="loginHint"></span>
+        </form>
+      </section>
+
+      <section id="configView" class="hidden">
+        <section class="config-hero glass">
+          <div>
+            <p class="eyebrow">Config Studio</p>
+            <h1>生成新的 config.json</h1>
+            <p class="lede">修改地区、新闻类型、邮件标题和显示时间，然后下载 config.json 上传覆盖 GitHub 仓库根目录。</p>
+          </div>
+          <div class="orbital-card">
+            <span class="orbital-label">显示时间</span>
+            <strong id="nextRun">读取中</strong>
+            <span id="scheduleHint">Asia/Shanghai</span>
+          </div>
+        </section>
+
+        <form id="settingsForm" class="workspace">
+          <section class="glass panel">
+            <div class="panel-head">
+              <div>
+                <p class="section-label">Schedule</p>
+                <h2>发送计划</h2>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="scheduleEnabled" />
+                <span></span>
+              </label>
+            </div>
+            <div class="grid two">
+              <label>
+                <span>每天发送时间</span>
+                <input id="sendTime" type="time" />
+              </label>
+              <label>
+                <span>时区</span>
+                <input id="timezone" value="Asia/Shanghai" />
+              </label>
+            </div>
+            <div class="notice">
+              这里的时间用于配置展示。真正的自动运行时间还需要同步修改 <code>.github/workflows/daily-mail.yml</code> 里的 cron。
+            </div>
+          </section>
+
+          <section class="glass panel">
+            <div class="panel-head">
+              <div>
+                <p class="section-label">Mail</p>
+                <h2>邮件外观</h2>
+              </div>
+            </div>
+            <div class="grid two">
+              <label>
+                <span>发件名称</span>
+                <input id="fromName" />
+              </label>
+              <label>
+                <span>邮件标题</span>
+                <input id="subject" />
+              </label>
+            </div>
+            <div class="notice soft">SMTP 账号、授权码和收件人不写入 config.json，请继续放在 GitHub Secrets。</div>
+          </section>
+
+          <section class="glass panel wide">
+            <div class="panel-head">
+              <div>
+                <p class="section-label">Briefing</p>
+                <h2>内容选择</h2>
+              </div>
+              <button class="ghost" type="button" id="previewBtn">生成预览</button>
+            </div>
+            <div class="grid four">
+              <label>
+                <span>城市</span>
+                <input id="city" placeholder="Beijing" />
+              </label>
+              <label>
+                <span>国家/地区</span>
+                <input id="country" placeholder="China" />
+              </label>
+              <label>
+                <span>每类新闻数量</span>
+                <input id="maxNews" type="number" min="1" max="12" />
+              </label>
+              <label class="checkline">
+                <input id="includeWeather" type="checkbox" />
+                <span>包含当日天气</span>
+              </label>
+            </div>
+            <div>
+              <span class="label-title">新闻类型</span>
+              <div class="chips" id="newsChips"></div>
+            </div>
+          </section>
+
+          <section class="actions">
+            <button type="button" id="downloadBtn">下载 config.json</button>
+            <button class="ghost" type="button" id="copyBtn">复制配置</button>
+            <button class="ghost" type="button" id="logoutBtn">退出</button>
+            <span id="saveHint"></span>
+          </section>
+        </form>
+
+        <section class="glass preview">
+          <div class="panel-head">
+            <div>
+              <p class="section-label">Preview</p>
+              <h2>邮件预览</h2>
+            </div>
+            <span id="previewMeta">使用当前配置生成</span>
+          </div>
+          <div id="previewFrame" class="mail-preview"></div>
+        </section>
+      </section>
+    </main>
+
+    <script src="./config.js"></script>
+  </body>
+</html>
