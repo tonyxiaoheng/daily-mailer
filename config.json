@@ -2,7 +2,7 @@
   "schedule": {
     "enabled": true,
     "time": "08:00",
-    "timezone": "Asia/Shanghai"
+    "timezone": "Asia/Guangzhou"
   },
   "email": {
     "fromName": "Daily Briefing",
@@ -14,7 +14,8 @@
     "includeWeather": true,
     "newsCategories": [
       "top",
-      "technology"
+      "technology",
+      "science"
     ],
     "maxNewsPerCategory": 5,
     "language": "zh-CN"
