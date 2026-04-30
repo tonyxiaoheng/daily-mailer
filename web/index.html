@@ -14,8 +14,9 @@
       <nav>
         <a href="#system">系统</a>
         <a href="#workflow">流程</a>
-        <a href="#privacy">安全</a>
-        <a class="nav-pill" href="./config.html">配置入口</a>
+        <a href="#security">安全</a>
+        <a href="#contact">联系</a>
+        <a class="config-link" href="./config.html">配置</a>
       </nav>
     </header>
 
@@ -24,13 +25,13 @@
         <div class="hero-stage glass">
           <div class="hero-copy">
             <p class="eyebrow">Daily Mailer</p>
-            <h1>快人一步，先人一步。</h1>
+            <h1 class="hero-title"><span>快人一步</span><span>先人一步</span></h1>
             <p class="lede">
-              一个每天自动投递天气与新闻的轻量系统。清晨醒来之前，它已经替你整理好今日天气、重点新闻、分类链接和阅读线索。
+              在信息抵达你之前，先把它整理成秩序。Daily Mailer 将天气、要闻与来源链接汇成一封清晨简报，让一天从判断力开始，而不是从碎片里醒来。
             </p>
             <div class="hero-actions">
-              <a class="button" href="./config.html">进入配置</a>
-              <a class="button ghost" href="#system">了解系统</a>
+              <a class="button" href="#system">了解系统</a>
+              <a class="button ghost" href="#security">查看安全设计</a>
             </div>
           </div>
           <div class="device-card">
@@ -46,7 +47,7 @@
               </div>
               <article>
                 <strong>今日重点</strong>
-                <span>科技、财经、国际新闻已经按栏目整理完毕。</span>
+                <span>先呈现最值得看的信号，再附上每条新闻的来源与链接。</span>
               </article>
             </div>
           </div>
@@ -54,65 +55,109 @@
       </section>
 
       <section id="system" class="section">
-        <div class="section-head">
+        <div class="section-head centered">
           <p class="eyebrow">System</p>
-          <h2>一个免费的每日邮报系统</h2>
-          <p>网页负责展示与配置生成，GitHub Actions 负责定时发送，邮箱密钥放在 GitHub Secrets。</p>
+          <h2>一套安静运行的每日邮报系统。</h2>
+          <p>它不试图占据你的注意力，只负责在合适的时间，把有用信息放到你已经习惯打开的邮箱里。</p>
         </div>
         <div class="feature-grid">
-          <article class="feature-card glass">
+          <article class="feature-card glass" data-detail="schedule">
             <span>01</span>
-            <h3>每日自动发送</h3>
-            <p>按设定时间自动运行，无需打开自己的电脑。</p>
+            <h3>定时送达</h3>
+            <p>由 GitHub Actions 在云端运行，不依赖你的电脑开机。</p>
+            <button type="button" class="detail-button">了解详情</button>
           </article>
-          <article class="feature-card glass">
+          <article class="feature-card glass" data-detail="briefing">
             <span>02</span>
-            <h3>天气与新闻同送达</h3>
-            <p>天气、热点、科技、财经、国际等栏目可自由组合。</p>
+            <h3>增强简报</h3>
+            <p>先给今日重点，再按类型列出新闻、来源和链接。</p>
+            <button type="button" class="detail-button">了解详情</button>
           </article>
-          <article class="feature-card glass">
+          <article class="feature-card glass" data-detail="pages">
             <span>03</span>
-            <h3>增强版新闻简报</h3>
-            <p>先给今日重点，再按类型附来源和原文链接。</p>
+            <h3>网页配置</h3>
+            <p>访客看到介绍页，配置入口独立放在二级页面。</p>
+            <button type="button" class="detail-button">了解详情</button>
           </article>
-          <article class="feature-card glass">
+          <article class="feature-card glass" data-detail="free">
             <span>04</span>
-            <h3>无需付费 AI</h3>
-            <p>基于公开 RSS 自动整理，保持免费、稳定、可控。</p>
+            <h3>免费运行</h3>
+            <p>基于 GitHub Pages、Actions、Open-Meteo 与 RSS。</p>
+            <button type="button" class="detail-button">了解详情</button>
           </article>
         </div>
       </section>
 
-      <section id="workflow" class="section split glass">
-        <div>
+      <section id="workflow" class="section workflow-section glass">
+        <div class="workflow-copy">
           <p class="eyebrow">Workflow</p>
-          <h2>清晨之前，简报已经在邮箱里。</h2>
+          <h2>从抓取到投递，每一步都清晰。</h2>
+          <p>系统把复杂动作拆成四个稳定环节：获取、整理、生成、发送。访客能看懂原理，你也能放心维护。</p>
         </div>
-        <div class="timeline">
-          <div><strong>抓取天气</strong><span>Open-Meteo 获取当日天气。</span></div>
-          <div><strong>整理新闻</strong><span>Google News RSS 按栏目聚合。</span></div>
-          <div><strong>生成邮件</strong><span>输出 Apple 风格日报排版。</span></div>
-          <div><strong>自动投递</strong><span>GitHub Actions 定时发送。</span></div>
+        <div class="workflow-steps">
+          <div><span>01</span><strong>读取公开配置</strong><p>城市、新闻类型、邮件标题来自 config.json。</p></div>
+          <div><span>02</span><strong>抓取天气与新闻</strong><p>天气来自 Open-Meteo，新闻来自 Google News RSS。</p></div>
+          <div><span>03</span><strong>生成增强日报</strong><p>自动清洗标题、整理来源，并输出邮件版式。</p></div>
+          <div><span>04</span><strong>通过 Gmail 投递</strong><p>SMTP 密钥来自 GitHub Secrets，不进入公开网页。</p></div>
         </div>
       </section>
 
-      <section id="privacy" class="section privacy">
-        <div class="privacy-card glass">
-          <p class="eyebrow">Privacy</p>
-          <h2>敏感信息不放在网页里。</h2>
+      <section id="security" class="section security-section">
+        <div class="security-hero dark-card">
+          <p class="eyebrow">Security</p>
+          <h2>公开展示，私密运行。</h2>
           <p>
-            SMTP 密码、Gmail 应用专用密码、收件邮箱等信息由 GitHub Secrets 保存。公开网页只展示系统说明和公开配置生成入口。
+            Daily Mailer 将“可以公开的信息”和“必须保密的密钥”分离。访客可以了解系统，配置页可以生成公开配置，而邮箱授权码始终留在 GitHub Secrets。
           </p>
         </div>
-        <div class="privacy-card dark-card">
-          <p class="eyebrow">Control</p>
-          <h2>配置入口放在二级页面。</h2>
-          <p>只有知道页面账号密码的人，才能进入配置生成器并下载新的 config.json。</p>
-          <a class="button" href="./config.html">打开配置入口</a>
+        <div class="security-grid">
+          <article class="glass"><h3>邮箱密钥不入库</h3><p>SMTP_PASS、Gmail 应用专用密码、收件邮箱都由 GitHub Secrets 管理。</p></article>
+          <article class="glass"><h3>配置只含公开信息</h3><p>config.json 只保存城市、栏目、标题和显示时间，适合公开仓库。</p></article>
+          <article class="glass"><h3>配置入口独立</h3><p>二级配置页带静态登录，用来降低误触和普通访客访问概率。</p></article>
+          <article class="glass"><h3>自动流程可追踪</h3><p>每次发送都能在 GitHub Actions 查看运行状态，便于排查。</p></article>
         </div>
+      </section>
+
+      <section id="contact" class="section contact-section glass">
+        <div>
+          <p class="eyebrow">Contact</p>
+          <h2>想了解部署或配置方式？</h2>
+          <p>联系方式可以在配置入口里更新。公开页面只展示你愿意公开给访客的信息。</p>
+        </div>
+        <button type="button" class="button" id="showContactBtn">联系我们</button>
       </section>
     </main>
 
-    <footer class="footer">Daily Mailer · Built for early signals and quiet mornings.</footer>
+    <footer class="footer">
+      <div>Daily Mailer · Built for early signals and quiet mornings.</div>
+      <div class="footer-actions">
+        <button type="button" id="languageBtn">语言设置</button>
+        <button type="button" id="accessibilityBtn">无障碍设置</button>
+        <button type="button" id="footerContactBtn">联系我们</button>
+      </div>
+    </footer>
+
+    <dialog id="detailDialog" class="dialog glass">
+      <button type="button" class="dialog-close" data-close>关闭</button>
+      <p class="eyebrow" id="detailKicker">Detail</p>
+      <h3 id="detailTitle"></h3>
+      <p id="detailBody"></p>
+    </dialog>
+
+    <dialog id="contactDialog" class="dialog glass">
+      <button type="button" class="dialog-close" data-close>关闭</button>
+      <p class="eyebrow">Contact</p>
+      <h3>联系方式</h3>
+      <div id="contactContent" class="contact-content"></div>
+    </dialog>
+
+    <dialog id="utilityDialog" class="dialog glass">
+      <button type="button" class="dialog-close" data-close>关闭</button>
+      <p class="eyebrow" id="utilityKicker">Settings</p>
+      <h3 id="utilityTitle"></h3>
+      <p id="utilityBody"></p>
+    </dialog>
+
+    <script src="./home.js"></script>
   </body>
 </html>

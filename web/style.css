@@ -56,9 +56,9 @@ a {
   top: 14px;
   z-index: 20;
   width: min(1180px, calc(100% - 32px));
-  min-height: 62px;
+  min-height: 54px;
   margin: 14px auto 0;
-  padding: 10px 12px 10px 18px;
+  padding: 8px 10px 8px 18px;
   border-radius: 999px;
   display: flex;
   align-items: center;
@@ -81,7 +81,7 @@ a {
 }
 
 .topbar nav a {
-  min-height: 38px;
+  min-height: 34px;
   display: inline-flex;
   align-items: center;
   padding: 0 12px;
@@ -92,9 +92,17 @@ a {
   font-weight: 700;
 }
 
-.topbar .nav-pill {
+.topbar .nav-pill,
+.topbar .config-link {
   color: #fff;
   background: rgba(12, 23, 38, 0.92);
+}
+
+.topbar .config-link {
+  min-height: 30px;
+  padding: 0 11px;
+  font-size: 12px;
+  opacity: 0.86;
 }
 
 .landing-hero {
@@ -136,6 +144,15 @@ a {
   font-size: clamp(56px, 9vw, 118px);
   line-height: 0.92;
   letter-spacing: 0;
+}
+
+.hero-title {
+  display: grid;
+  gap: 6px;
+}
+
+.hero-title span {
+  display: block;
 }
 
 .hero-actions {
@@ -273,6 +290,16 @@ a {
   min-height: 250px;
   padding: 24px;
   border-radius: 30px;
+  cursor: pointer;
+  transition: transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.32s ease, background 0.32s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px) scale(1.035);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.42)),
+    rgba(255, 255, 255, 0.56);
+  box-shadow: 0 34px 88px rgba(34, 54, 92, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 .feature-card span {
@@ -290,33 +317,81 @@ a {
   line-height: 1.65;
 }
 
-.split {
-  display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
-  gap: 30px;
-  padding: clamp(24px, 5vw, 54px);
-  border-radius: 38px;
+.detail-button {
+  margin-top: 14px;
+  min-height: 36px;
+  padding: 0 13px;
+  border-radius: 999px;
+  box-shadow: none;
+  background: rgba(12, 23, 38, 0.08);
+  color: var(--text);
+  font-size: 13px;
 }
 
-.timeline {
+.workflow-section {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.78fr) minmax(0, 1.22fr);
+  gap: clamp(22px, 4vw, 54px);
+  padding: clamp(24px, 5vw, 54px);
+  border-radius: 38px;
+  align-items: center;
+}
+
+.workflow-copy {
+  max-width: 430px;
+}
+
+.workflow-copy h2 {
+  margin: 8px 0 16px;
+  font-size: clamp(38px, 5vw, 70px);
+  line-height: 0.98;
+}
+
+.workflow-copy p {
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.workflow-steps {
   display: grid;
   gap: 12px;
 }
 
-.timeline div {
-  padding: 17px 18px;
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.44);
+.workflow-steps div {
+  min-height: 112px;
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  column-gap: 16px;
+  align-content: center;
+  padding: 18px;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.46);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
 }
 
-.timeline strong,
-.timeline span {
+.workflow-steps span {
+  grid-row: 1 / 3;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  background: rgba(23, 107, 255, 0.12);
+  color: #176bff;
+  font-weight: 900;
+}
+
+.workflow-steps strong,
+.workflow-steps p {
   display: block;
 }
 
-.timeline span {
+.workflow-steps p {
   margin-top: 4px;
   color: var(--muted);
+  line-height: 1.55;
 }
 
 .privacy {
@@ -329,6 +404,54 @@ a {
   min-height: 360px;
   padding: clamp(24px, 5vw, 48px);
   border-radius: 38px;
+}
+
+.security-section {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: 18px;
+  align-items: stretch;
+}
+
+.security-hero {
+  min-height: 520px;
+  padding: clamp(28px, 5vw, 56px);
+  border-radius: 42px;
+}
+
+.security-hero h2 {
+  margin: 10px 0 18px;
+  font-size: clamp(44px, 6vw, 88px);
+  line-height: 0.95;
+}
+
+.security-hero p {
+  max-width: 540px;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+.security-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.security-grid article {
+  min-height: 250px;
+  padding: 24px;
+  border-radius: 30px;
+}
+
+.security-grid h3 {
+  margin: 0 0 12px;
+  font-size: 25px;
+}
+
+.security-grid p {
+  color: var(--muted);
+  line-height: 1.7;
 }
 
 .dark-card {
@@ -351,7 +474,92 @@ a {
   width: min(1180px, calc(100% - 32px));
   margin: 54px auto 32px;
   color: var(--muted);
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.footer-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.footer-actions button {
+  min-height: 36px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.46);
+  color: var(--text);
+  box-shadow: none;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.dialog {
+  width: min(560px, calc(100% - 32px));
+  border: 0;
+  border-radius: 30px;
+  padding: 30px;
+  color: var(--text);
+}
+
+.dialog::backdrop {
+  background: rgba(8, 15, 28, 0.32);
+  backdrop-filter: blur(12px);
+}
+
+.dialog h3 {
+  margin: 8px 0 12px;
+  font-size: 34px;
+}
+
+.dialog p {
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.dialog-close {
+  float: right;
+  min-height: 34px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: rgba(12, 23, 38, 0.08);
+  color: var(--text);
+  box-shadow: none;
+}
+
+.contact-content {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.contact-content div {
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.42);
+}
+
+.contact-content strong,
+.contact-content span {
+  display: block;
+}
+
+.contact-content span {
+  margin-top: 4px;
+  color: var(--muted);
+}
+
+.accessibility-on {
+  --text: #05070a;
+  --muted: rgba(5, 7, 10, 0.78);
+}
+
+.accessibility-on body,
+body.accessibility-on {
+  font-size: 18px;
 }
 
 .config-shell {
@@ -890,8 +1098,10 @@ button {
   .workspace,
   .setup-strip,
   .feature-grid,
-  .split,
+  .workflow-section,
   .privacy,
+  .security-section,
+  .security-grid,
   .config-hero,
   .two,
   .four {
@@ -909,6 +1119,10 @@ button {
     display: none;
   }
 
+  .topbar nav a.config-link {
+    display: inline-flex;
+  }
+
   .hero-stage {
     min-height: auto;
     border-radius: 30px;
@@ -922,6 +1136,10 @@ button {
 
   .device-card {
     max-width: 100%;
+  }
+
+  .security-hero {
+    min-height: auto;
   }
 
   .hero {

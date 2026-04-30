@@ -15,6 +15,12 @@ const NEWS_FEEDS = {
 const DEFAULT_CONFIG = {
   schedule: { enabled: true, time: "08:00", timezone: "Asia/Shanghai" },
   email: { fromName: "Daily Briefing", subject: "今日天气与新闻简报" },
+  site: {
+    contactName: "Daily Mailer Owner",
+    contactEmail: "your-email@example.com",
+    contactWechat: "your-wechat-id",
+    contactNote: "欢迎联系我了解部署、配置和定制方式。",
+  },
   content: {
     city: "Shanghai",
     country: "China",
@@ -57,6 +63,10 @@ const fields = {
   country: document.querySelector("#country"),
   maxNews: document.querySelector("#maxNews"),
   includeWeather: document.querySelector("#includeWeather"),
+  contactName: document.querySelector("#contactName"),
+  contactEmail: document.querySelector("#contactEmail"),
+  contactWechat: document.querySelector("#contactWechat"),
+  contactNote: document.querySelector("#contactNote"),
 };
 
 const newsChips = document.querySelector("#newsChips");
@@ -125,6 +135,10 @@ function fillForm(config) {
   fields.country.value = config.content.country || "";
   fields.maxNews.value = config.content.maxNewsPerCategory || 5;
   fields.includeWeather.checked = Boolean(config.content.includeWeather);
+  fields.contactName.value = config.site?.contactName || "";
+  fields.contactEmail.value = config.site?.contactEmail || "";
+  fields.contactWechat.value = config.site?.contactWechat || "";
+  fields.contactNote.value = config.site?.contactNote || "";
 
   const selected = new Set(config.content.newsCategories || []);
   newsChips.innerHTML = Object.entries(NEWS_FEEDS)
@@ -144,6 +158,12 @@ function collectConfig() {
     email: {
       fromName: fields.fromName.value.trim() || "Daily Briefing",
       subject: fields.subject.value.trim() || "今日天气与新闻简报",
+    },
+    site: {
+      contactName: fields.contactName.value.trim() || "Daily Mailer Owner",
+      contactEmail: fields.contactEmail.value.trim() || "your-email@example.com",
+      contactWechat: fields.contactWechat.value.trim() || "your-wechat-id",
+      contactNote: fields.contactNote.value.trim() || "欢迎联系我了解部署、配置和定制方式。",
     },
     content: {
       city: fields.city.value.trim() || "Shanghai",
