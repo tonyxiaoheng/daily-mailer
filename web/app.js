@@ -151,6 +151,13 @@ function escapeHtml(value) {
     .replace(/"/g, "&quot;");
 }
 
+function cleanDisplayText(value) {
+  return String(value ?? "")
+    .replace(/&amp;nbsp;|&nbsp;|&#160;|\u00a0/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 async function fetchWeather(config) {
   const placeUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(config.content.city)}&count=1&language=zh&format=json`;
   const placeData = await fetch(placeUrl).then((response) => response.json());
@@ -182,7 +189,7 @@ function sampleNews(config) {
   return config.content.newsCategories.map((key) => {
     const label = NEWS_FEEDS[key]?.label || key;
     const items = Array.from({ length: Math.min(config.content.maxNewsPerCategory, 4) }, (_, index) => ({
-      title: `${label}焦点新闻 ${index + 1}`,
+      title: cleanDisplayText(`${label}焦点新闻 ${index + 1}`),
       source: "实时发送时会替换为真实来源",
       link: "#",
     }));
