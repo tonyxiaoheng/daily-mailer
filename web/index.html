@@ -12,11 +12,11 @@
     <header class="topbar glass">
       <a class="brand" href="./index.html">Daily Mailer</a>
       <nav>
-        <a href="#system">系统</a>
-        <a href="#workflow">流程</a>
-        <a href="#security">安全</a>
-        <a href="#contact">联系</a>
-        <a class="config-link" href="./config.html">配置</a>
+        <a href="#system" data-i18n="navSystem">系统</a>
+        <a href="#workflow" data-i18n="navWorkflow">流程</a>
+        <a href="#security" data-i18n="navSecurity">安全</a>
+        <a href="#contact" data-i18n="navContact">联系</a>
+        <a class="config-link" href="./config.html" data-i18n="navConfig">配置</a>
       </nav>
     </header>
 
@@ -26,29 +26,30 @@
           <div class="hero-copy">
             <p class="eyebrow">Daily Mailer</p>
             <p class="product-name" data-i18n="productName">每日邮报系统</p>
-            <h1 class="hero-title"><span data-i18n="heroLine1">快人一步</span><span data-i18n="heroLine2">先人一步</span></h1>
-            <p class="lede">
+            <h1 class="hero-title">
+              <span data-i18n="heroLine1">快人一步</span>
+              <span data-i18n="heroLine2">先人一步</span>
+            </h1>
+            <p class="lede" data-i18n="heroLede">
               在信息抵达你之前，先把它整理成秩序。Daily Mailer 将天气、要闻与来源链接汇成一封清晨简报，让一天从判断力开始，而不是从碎片里醒来。
             </p>
             <div class="hero-actions">
-              <a class="button" href="#system">了解系统</a>
-              <a class="button ghost" href="#security">查看安全设计</a>
+              <a class="button" href="#system" data-i18n="heroPrimary">了解系统</a>
+              <a class="button ghost" href="#security" data-i18n="heroSecondary">查看安全设计</a>
             </div>
           </div>
           <div class="device-card">
-            <div class="device-toolbar">
-              <span></span><span></span><span></span>
-            </div>
+            <div class="device-toolbar"><span></span><span></span><span></span></div>
             <div class="mail-shot">
               <p>Daily Briefing</p>
-              <h2>今日天气与新闻简报</h2>
+              <h2 data-i18n="deviceTitle">今日天气与新闻简报</h2>
               <div class="shot-grid">
-                <div><b>晴朗</b><span>18 - 26°C</span></div>
-                <div><b>12</b><span>条重点新闻</span></div>
+                <div><b data-i18n="deviceWeather">晴朗</b><span>18 - 26°C</span></div>
+                <div><b>12</b><span data-i18n="deviceNews">条重点新闻</span></div>
               </div>
               <article>
-                <strong>今日重点</strong>
-                <span>先呈现最值得看的信号，再附上每条新闻的来源与链接。</span>
+                <strong data-i18n="deviceFocus">今日重点</strong>
+                <span data-i18n="deviceDesc">先呈现最值得看的信号，再附上每条新闻的来源与链接。</span>
               </article>
             </div>
           </div>
@@ -58,33 +59,33 @@
       <section id="system" class="section">
         <div class="section-head centered">
           <p class="eyebrow">System</p>
-          <h2>先理解世界，再开始一天。</h2>
-          <p>它不试图占据你的注意力，只负责在合适的时间，把有用信息放到你已经习惯打开的邮箱里。</p>
+          <h2 data-i18n="systemTitle">先理解世界，再开始一天。</h2>
+          <p data-i18n="systemDesc">它不试图占据你的注意力，只负责在合适的时间，把有用信息放到你已经习惯打开的邮箱里。</p>
         </div>
         <div class="feature-grid">
           <article class="feature-card glass" data-detail="schedule">
             <span>01</span>
-            <h3>定时送达</h3>
-            <p>由 GitHub Actions 在云端运行，不依赖你的电脑开机。</p>
-            <button type="button" class="detail-button">了解详情</button>
+            <h3 data-i18n="featureScheduleTitle">定时送达</h3>
+            <p data-i18n="featureScheduleDesc">由 GitHub Actions 在云端运行，不依赖你的电脑开机。</p>
+            <button type="button" class="detail-button" data-i18n="learnMore">了解详情</button>
           </article>
           <article class="feature-card glass" data-detail="briefing">
             <span>02</span>
-            <h3>增强简报</h3>
-            <p>先给今日重点，再按类型列出新闻、来源和链接。</p>
-            <button type="button" class="detail-button">了解详情</button>
+            <h3 data-i18n="featureBriefingTitle">增强简报</h3>
+            <p data-i18n="featureBriefingDesc">先给今日重点，再按类型列出新闻、来源和链接。</p>
+            <button type="button" class="detail-button" data-i18n="learnMore">了解详情</button>
           </article>
           <article class="feature-card glass" data-detail="pages">
             <span>03</span>
-            <h3>网页配置</h3>
-            <p>访客看到介绍页，配置入口独立放在二级页面。</p>
-            <button type="button" class="detail-button">了解详情</button>
+            <h3 data-i18n="featurePagesTitle">网页配置</h3>
+            <p data-i18n="featurePagesDesc">访客看到介绍页，配置入口独立放在二级页面。</p>
+            <button type="button" class="detail-button" data-i18n="learnMore">了解详情</button>
           </article>
           <article class="feature-card glass" data-detail="free">
             <span>04</span>
-            <h3>免费运行</h3>
-            <p>基于 GitHub Pages、Actions、Open-Meteo 与 RSS。</p>
-            <button type="button" class="detail-button">了解详情</button>
+            <h3 data-i18n="featureFreeTitle">免费运行</h3>
+            <p data-i18n="featureFreeDesc">基于 GitHub Pages、Actions、Open-Meteo 与 RSS。</p>
+            <button type="button" class="detail-button" data-i18n="learnMore">了解详情</button>
           </article>
         </div>
       </section>
@@ -92,77 +93,101 @@
       <section id="workflow" class="section workflow-section glass">
         <div class="workflow-copy">
           <p class="eyebrow">Workflow</p>
-          <h2><span>从抓取到投递，</span><span>每一步都清晰。</span></h2>
-          <p>系统把复杂动作拆成四个稳定环节：获取、整理、生成、发送。访客能看懂原理，你也能放心维护。</p>
+          <h2><span data-i18n="workflowTitle1">从抓取到投递，</span><span data-i18n="workflowTitle2">每一步都清晰。</span></h2>
+          <p data-i18n="workflowDesc">系统把复杂动作拆成四个稳定环节：获取、整理、生成、发送。访客能看懂原理，你也能放心维护。</p>
+          <div class="workflow-orbit" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+          </div>
         </div>
         <div class="workflow-steps">
-          <div><span>01</span><strong>读取公开配置</strong><p>城市、新闻类型、邮件标题来自 config.json。</p></div>
-          <div><span>02</span><strong>抓取天气与新闻</strong><p>天气来自 Open-Meteo，新闻来自 Google News RSS。</p></div>
-          <div><span>03</span><strong>生成增强日报</strong><p>自动清洗标题、整理来源，并输出邮件版式。</p></div>
-          <div><span>04</span><strong>通过 Gmail 投递</strong><p>SMTP 密钥来自 GitHub Secrets，不进入公开网页。</p></div>
+          <div><span>01</span><strong data-i18n="step1Title">读取公开配置</strong><p data-i18n="step1Desc">城市、新闻类型、邮件标题来自 config.json。</p></div>
+          <div><span>02</span><strong data-i18n="step2Title">抓取天气与新闻</strong><p data-i18n="step2Desc">天气来自 Open-Meteo，新闻来自 Google News RSS。</p></div>
+          <div><span>03</span><strong data-i18n="step3Title">生成增强日报</strong><p data-i18n="step3Desc">自动清洗标题、整理来源，并输出邮件版式。</p></div>
+          <div><span>04</span><strong data-i18n="step4Title">通过 Gmail 投递</strong><p data-i18n="step4Desc">SMTP 密钥来自 GitHub Secrets，不进入公开网页。</p></div>
         </div>
       </section>
 
       <section id="security" class="section security-section">
         <div class="security-hero dark-card">
+          <div class="security-visual hero-visual" aria-hidden="true">
+            <span class="shield-core"></span>
+            <span class="shield-ring ring-a"></span>
+            <span class="shield-ring ring-b"></span>
+          </div>
           <p class="eyebrow">Security</p>
-          <h2><span>公开展示</span><span>私密运行</span></h2>
-          <p>
+          <h2><span data-i18n="securityTitle1">公开展示</span><span data-i18n="securityTitle2">私密运行</span></h2>
+          <p data-i18n="securityDesc">
             Daily Mailer 将“可以公开的信息”和“必须保密的密钥”分离。访客可以了解系统，配置页可以生成公开配置，而邮箱授权码始终留在 GitHub Secrets。
           </p>
         </div>
         <div class="security-grid">
-          <article class="glass"><h3>邮箱密钥不入库</h3><p>SMTP_PASS、Gmail 应用专用密码、收件邮箱都由 GitHub Secrets 管理。</p></article>
-          <article class="glass"><h3>配置只含公开信息</h3><p>config.json 只保存城市、栏目、标题和显示时间，适合公开仓库。</p></article>
-          <article class="glass"><h3>配置入口独立</h3><p>二级配置页带静态登录，用来降低误触和普通访客访问概率。</p></article>
-          <article class="glass"><h3>自动流程可追踪</h3><p>每次发送都能在 GitHub Actions 查看运行状态，便于排查。</p></article>
+          <article class="glass security-card">
+            <div class="security-visual key-visual" aria-hidden="true"><span></span><span></span></div>
+            <h3 data-i18n="securityCard1Title">邮箱密钥不入库</h3>
+            <p data-i18n="securityCard1Desc">SMTP_PASS、Gmail 应用专用密码、收件邮箱都由 GitHub Secrets 管理。</p>
+          </article>
+          <article class="glass security-card">
+            <div class="security-visual file-visual" aria-hidden="true"><span></span><span></span><span></span></div>
+            <h3 data-i18n="securityCard2Title">配置只含公开信息</h3>
+            <p data-i18n="securityCard2Desc">config.json 只保存城市、栏目、标题和显示时间，适合公开仓库。</p>
+          </article>
+          <article class="glass security-card">
+            <div class="security-visual gate-visual" aria-hidden="true"><span></span><span></span></div>
+            <h3 data-i18n="securityCard3Title">配置入口独立</h3>
+            <p data-i18n="securityCard3Desc">二级配置页带静态登录，用来降低误触和普通访客访问概率。</p>
+          </article>
+          <article class="glass security-card">
+            <div class="security-visual trace-visual" aria-hidden="true"><span></span><span></span><span></span></div>
+            <h3 data-i18n="securityCard4Title">自动流程可追踪</h3>
+            <p data-i18n="securityCard4Desc">每次发送都能在 GitHub Actions 查看运行状态，便于排查。</p>
+          </article>
         </div>
       </section>
 
       <section id="contact" class="section contact-section glass">
         <div>
           <p class="eyebrow">Contact</p>
-          <h2>留下你的信息。</h2>
-          <p>访客可以提交姓名、邮箱和留言。纯静态网页不会真正发送表单，但会生成一份可复制的访客信息，方便你后续接入表单服务。</p>
+          <h2 data-i18n="contactTitle">留下你的信息。</h2>
+          <p data-i18n="contactDesc">访客可以提交姓名、邮箱和留言。纯静态网页不会真正发送表单，但会生成一份可复制的访客信息，方便后续接入表单服务。</p>
         </div>
-        <button type="button" class="button" id="showContactBtn">提交访客信息</button>
+        <button type="button" class="button" id="showContactBtn" data-i18n="contactButton">提交访客信息</button>
       </section>
     </main>
 
     <footer class="footer">
-      <div>Daily Mailer · Built for early signals and quiet mornings.</div>
+      <div data-i18n="footerText">Daily Mailer · Built for early signals and quiet mornings.</div>
       <div class="footer-actions">
-        <button type="button" id="languageBtn">语言设置</button>
-        <button type="button" id="accessibilityBtn">无障碍设置</button>
-        <button type="button" id="footerContactBtn">提交访客信息</button>
+        <button type="button" id="languageBtn" data-i18n="languageSettings">语言设置</button>
+        <button type="button" id="accessibilityBtn" data-i18n="accessibilitySettings">无障碍设置</button>
+        <button type="button" id="footerContactBtn" data-i18n="contactButton">提交访客信息</button>
       </div>
     </footer>
 
     <dialog id="detailDialog" class="dialog glass">
-      <button type="button" class="dialog-close" data-close>关闭</button>
-      <p class="eyebrow" id="detailKicker">Detail</p>
+      <button type="button" class="dialog-close" data-close data-i18n="close">关闭</button>
+      <p class="eyebrow">Detail</p>
       <h3 id="detailTitle"></h3>
       <p id="detailBody"></p>
     </dialog>
 
     <dialog id="contactDialog" class="dialog glass">
-      <button type="button" class="dialog-close" data-close>关闭</button>
+      <button type="button" class="dialog-close" data-close data-i18n="close">关闭</button>
       <p class="eyebrow">Contact</p>
-      <h3>提交访客信息</h3>
+      <h3 data-i18n="visitorTitle">提交访客信息</h3>
       <form id="visitorForm" class="visitor-form">
-        <label><span>姓名</span><input id="visitorName" /></label>
-        <label><span>邮箱</span><input id="visitorEmail" type="email" /></label>
-        <label><span>留言</span><textarea id="visitorMessage" rows="4"></textarea></label>
-        <button type="submit">生成访客信息</button>
+        <label><span data-i18n="visitorName">姓名</span><input id="visitorName" /></label>
+        <label><span data-i18n="visitorEmail">邮箱</span><input id="visitorEmail" type="email" /></label>
+        <label><span data-i18n="visitorMessage">留言</span><textarea id="visitorMessage" rows="4"></textarea></label>
+        <button type="submit" data-i18n="visitorSubmit">生成访客信息</button>
       </form>
       <div id="contactContent" class="contact-content"></div>
     </dialog>
 
-    <dialog id="utilityDialog" class="dialog glass">
-      <button type="button" class="dialog-close" data-close>关闭</button>
+    <dialog id="utilityDialog" class="dialog glass utility-dialog">
+      <button type="button" class="dialog-close" data-close data-i18n="close">关闭</button>
       <p class="eyebrow" id="utilityKicker">Settings</p>
       <h3 id="utilityTitle"></h3>
-      <p id="utilityBody"></p>
+      <div id="utilityBody"></div>
     </dialog>
 
     <script src="./home.js"></script>
